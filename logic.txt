@@ -1,0 +1,21 @@
+LOGIC FOR THE CODE
+
+We maintain two dictionaries mapping a string (key) to a list (value)- one to map participant roll numbers to their skills and one to map project names to the required skill levels for each role.
+
+Our goal is to maximize the number of projects that can be completed.
+
+We start by identifying the projects that require only one participant. In any case, these projects will hinder the completion of at most one other project, so it balances out.
+We allocate the project to the least skilled participants i.e., those who possess the minimum required skill level and ideally possess minimal other skills to ensure that unnecessary resources are not being wasted on projects that do not need them.
+Once a participant is allotted a project, we remove them from the participants dictionary to ease further processing.
+
+Then we move on to the cases where a project requires more than one participant.
+We work in increasing order of number of roles so as to maximize the final number of completed projects.
+
+For the case where we need two participants, we iterate through the particpants dictionary and identify those whose skills are the least (minimum required and otherwise low skills) and find a compatible pair, i.e. they either satisfy a role each individually, or one mentors the other, or both mentor each other.
+Again, we remove the participants who have been allotted projects from the participants dictionary.
+If no feasible combination of participants is available, we skip that project and move on to the next one.
+
+We continue this process for increasing number of roles until one of the following conditions is satisfied:
+a) Every participant has been allotted a project and there is at most one half-filled project
+b) All projects have been filled
+c) There are leftover participants and projects, but the participants do not possess the skills required to complete the projects.
